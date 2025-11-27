@@ -25,7 +25,7 @@ WORKDIR /opt/tomcat
 COPY --from=downloader /structurizr-onpremises.war ./webapps/ROOT.war
 
 RUN sed -i 's/port="8080"/port="${http.port}" maxPostSize="10485760"/' ./conf/server.xml \
-    && echo 'export CATALINA_OPTS="-Xms512M -Xmx512M -Dhttp.port=$PORT"' > ./bin/setenv.sh
+    && echo 'export CATALINA_OPTS="-Xms512M -Xmx512M -Dhttp.port=$PORT --add-modules jdk.incubator.vector"' > ./bin/setenv.sh
 
 ENV STRUCTURIZR_DATA_DIRECTORY=/usr/local/structurizr
 
