@@ -4,6 +4,8 @@ RUN apk add --no-cache ca-certificates wget tar
 
 RUN wget -O /tomcat.tar.gz https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.14/bin/apache-tomcat-11.0.14.tar.gz
 
+RUN mkdir /opt/tomcat
+
 RUN tar xvzf tomcat.tar.gz --strip-components 1 --directory /opt/tomcat
 
 RUN wget -O /structurizr-onpremises.war https://github.com/structurizr/onpremises/releases/download/v2025.11.09/structurizr-onpremises.war
@@ -27,4 +29,4 @@ RUN sed -i 's/port="8080"/port="${http.port}" maxPostSize="10485760"/' ./conf/se
 
 EXPOSE ${PORT}
 
-CMD ["bin/catalina.sh", "run"]
+CMD ["./bin/catalina.sh", "run"]
