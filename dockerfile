@@ -10,6 +10,8 @@ RUN tar xvzf tomcat.tar.gz --strip-components 1 --directory /opt/tomcat
 
 RUN wget -O /structurizr-onpremises.war https://github.com/structurizr/onpremises/releases/download/v2025.11.09/structurizr-onpremises.war
 
+RUN rm -rf /opt/tomcat/webapps/ROOT*
+
 FROM bellsoft/liberica-runtime-container:jre-21-glibc
 
 ENV PORT=3000
@@ -19,8 +21,6 @@ RUN apk add --no-cache graphviz
 COPY --from=downloader /opt/tomcat/ /opt/tomcat/
 
 WORKDIR /opt/tomcat
-
-RUN rm -rf ./webapps/ROOT*
 
 COPY --from=downloader /structurizr-onpremises.war ./webapps/ROOT.war
 
